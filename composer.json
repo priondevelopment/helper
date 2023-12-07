@@ -1,0 +1,80 @@
+{
+    "name": "priondevelopment/helper",
+    "config": {
+        "sort-packages": true
+    },
+    "description": "Helper methods, extensions and traits in Laravel.",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PrionDevelopment\\Helper\\HelperServiceProvider"
+            ],
+            "aliases": {
+                "Geography": "PrionDevelopment\\Helper\\HelperFacade"
+            }
+        }
+    },
+    "homepage": "https://priondevelopment.com/packages/helper",
+    "keywords": [
+        "model helper"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/priondevelopment/helper/issues",
+        "source": "https://github.com/priondevelopment/helper"
+    },
+    "authors": [
+        {
+            "name": "Prion Development",
+            "email": "packages@priondevelopment.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src"
+        ],
+        "files": [
+            "src/HelperFunctions.php"
+        ],
+        "psr-4": {
+            "PrionDevelopment\\Helper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Geography\\Tests\\": "src/tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.2",
+        "illuminate/cache": "^10.0",
+        "ramsey/uuid": "^4.0"
+    },
+    "require-dev": {
+        "php": "^8.2",
+        "nunomaduro/collision": "^7.8",
+        "orchestra/testbench": "dev-develop"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "test": [
+            "vendor/bin/testbench package:test"
+        ]
+    }
+}
