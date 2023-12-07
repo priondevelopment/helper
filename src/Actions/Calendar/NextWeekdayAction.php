@@ -5,7 +5,7 @@ namespace PrionDevelopment\Helper\Actions\Calendar;
 use Carbon\Carbon;
 use PrionDevelopment\Helper\Exceptions\DateIsInPastException;
 
-trait NextWeekdayAction
+class NextWeekdayAction
 {
     /**
      * Pull the Next Weekday
@@ -15,7 +15,7 @@ trait NextWeekdayAction
      * @return Carbon
      * @throws DateIsInPastException
      */
-    public function handle(null|Carbon $start): Carbon
+    public function __invoke(null|Carbon $start = null): Carbon
     {
         if (null === $start) {
             $start = Carbon::now();

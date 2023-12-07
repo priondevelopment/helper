@@ -20,7 +20,7 @@ class DateMathTraitTest extends HelperBaseTest
 
 
         // Run
-        $nextWeekday = $nextWeekdayAction->handle($nextSunday);
+        $nextWeekday = $nextWeekdayAction->__invoke($nextSunday);
 
 
         // Assert
@@ -38,7 +38,7 @@ class DateMathTraitTest extends HelperBaseTest
 
 
         // Run
-        $nextWeekday = $nextWeekdayAction->handle($nextSunday);
+        $nextWeekday = $nextWeekdayAction->__invoke($nextSunday);
 
 
         // Assert
@@ -55,7 +55,7 @@ class DateMathTraitTest extends HelperBaseTest
 
 
         // Run
-        $nextWeekday = $nextWeekdayAction->handle($nextSunday);
+        $nextWeekday = $nextWeekdayAction->__invoke($nextSunday);
 
 
         // Assert
@@ -72,6 +72,6 @@ class DateMathTraitTest extends HelperBaseTest
 
 
         // Run
-        $nextWeekdayAction->handle($nextSunday);
+        $nextWeekdayAction->__invoke($nextSunday);
     }
 }
