@@ -12,20 +12,23 @@ class LookupTraitTest extends HelperBaseTest
 
     public function test_set_create_false()
     {
+        // Reset in can different
+        $this->setCreate(false);
+
         // False by Default
-        $this->assertFalse($this->create);
+        $this->assertFalse($this->shouldCreate);
 
         $this->setCreate(true);
-        $this->assertTrue($this->create);
+        $this->assertTrue($this->shouldCreate);
 
         $this->setCreate(false);
-        $this->assertFalse($this->create);
+        $this->assertFalse($this->shouldCreate);
     }
 
     public function test_set_create_null()
     {
         $this->setCreate(null);
-        $this->assertFalse($this->create);
+        $this->assertFalse($this->shouldCreate);
     }
 
     public function test_set_cache()

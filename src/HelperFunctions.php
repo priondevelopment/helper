@@ -45,8 +45,12 @@ if (!function_exists('urlFilter')) {
 }
 
 if (!function_exists('standardizeString')) {
-    function standardizeString(?string $value=null)
+    function standardizeString(null|int|string $value=null): null|int|string
     {
+        if (is_int($value)) {
+            return $value;
+        }
+
         if (empty($value)) {
             return '';
         }

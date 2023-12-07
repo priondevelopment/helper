@@ -19,7 +19,7 @@ trait LookupTrait
 
     public ?string $defaultLookupUuidColumn = 'uuid';
 
-    protected bool $create = false;
+    protected bool $shouldCreate = false;
 
     protected bool $shouldCache = true;
 
@@ -49,7 +49,7 @@ trait LookupTrait
         $value = standardizeString($value);
 
         // Will always return null if empty string
-        if (isEmpty($value)) {
+        if (empty($value)) {
             return null;
         }
 
@@ -83,9 +83,31 @@ trait LookupTrait
             return $response;
         }
 
-        // Create
+        return $this->lookupCreate($value, $data);
+    }
 
-        return $response;
+    public function lookupCreate(
+        string|int|null $value
+        , array $data = []
+    )
+    {
+        if (true !== $this->shouldCreate) {
+            return null;
+        }
+
+        // Will only create a string
+        if (
+            empty($value) ||
+            is_int($value) ||
+            Uuid::isValid($value)
+        ) {
+            return null;
+        }
+
+        $column = $this->getStringColumn();
+        $data[$column] = $value;
+
+        return self::create($data);
     }
 
     /**
@@ -293,7 +315,7 @@ trait LookupTrait
 
     public function setCreate(bool|null $setCreate): self
     {
-        $this->create = boolval($setCreate);
+        $this->shouldCreate = boolval($setCreate);
         return $this;
     }
 
