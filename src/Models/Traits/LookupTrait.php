@@ -38,7 +38,7 @@ trait LookupTrait
      * @param string|int|null $value
      * @param array $data
      *
-     * @return LookupTrait|\PrionDevelopment\Helper\tests\Unit\Models\Traits\LookupTraitTest|null
+     * @return LookupTrait|\PrionDevelopment\Helper\Tests\Unit\Models\Traits\LookupTraitTest|null
      */
     public function lookup(
         string|int|null $value

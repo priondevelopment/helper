@@ -1,21 +1,19 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests\Models;
+namespace PrionDevelopment\Helper\Tests\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PrionDevelopment\Helper\Models\Traits\LookupTrait;
 
-class TestCustomModel extends Model
+class TestCustomMismatchModel extends Model
 {
     use HasFactory;
     use LookupTrait;
 
     protected $guarded = ['id', 'created_at'];
 
-    protected $table = 'test_custom_models';
-
-    public ?string $lookupIdColumn = 'custom_id';
+    protected $table = 'test_custom_mismatch';
 
     public ?string $lookupStringColumn = 'custom_name';
 

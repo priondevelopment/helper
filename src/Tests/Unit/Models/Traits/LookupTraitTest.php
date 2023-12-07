@@ -1,10 +1,10 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests\Unit\Models\Traits;
+namespace PrionDevelopment\Helper\Tests\Unit\Models\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use PrionDevelopment\Helper\Models\Traits\LookupTrait;
-use PrionDevelopment\Helper\tests\HelperBaseTest;
+use PrionDevelopment\Helper\Tests\HelperBaseTest;
 
 class LookupTraitTest extends HelperBaseTest
 {

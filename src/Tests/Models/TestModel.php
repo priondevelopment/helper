@@ -1,6 +1,6 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests\Models;
+namespace PrionDevelopment\Helper\Tests\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

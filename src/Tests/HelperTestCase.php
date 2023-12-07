@@ -1,6 +1,6 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests;
+namespace PrionDevelopment\Helper\Tests;
 
 abstract class HelperTestCase extends \Orchestra\Testbench\TestCase
 {
