@@ -5,6 +5,7 @@ namespace PrionDevelopment\Helper\Tests\Unit\Models\Traits;
 use Illuminate\Support\Facades\Cache;
 use PrionDevelopment\Helper\Models\Traits\LookupTrait;
 use PrionDevelopment\Helper\Tests\HelperBaseTest;
+use PrionDevelopment\Helper\Tests\Models\TestModel;
 
 class LookupTraitTest extends HelperBaseTest
 {
@@ -108,5 +109,10 @@ class LookupTraitTest extends HelperBaseTest
         $this->assertNull($this->lookupByString(null));
         $this->assertNull($this->lookupByString(''));
         $this->assertNull($this->lookupByString(' '));
+    }
+
+    public function test_static_lookup()
+    {
+        $this->assertNull(TestModel::lookup('will be null'));
     }
 }

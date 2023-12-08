@@ -1,14 +1,13 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests\Unit\Models\Traits;
+namespace PrionDevelopment\Helper\Tests\Unit\Models\Traits;
 
 use Illuminate\Support\Str;
-use PrionDevelopment\Helper\Exceptions\FixDefaultColumnOnModelException;
 use PrionDevelopment\Helper\Models\Traits\LookupTrait;
-use PrionDevelopment\Helper\tests\HelperBaseTest;
-use PrionDevelopment\Helper\tests\Models\TestCustomMismatchModel;
-use PrionDevelopment\Helper\tests\Models\TestCustomModel;
-use PrionDevelopment\Helper\tests\Models\TestModel;
+use PrionDevelopment\Helper\Tests\HelperBaseTest;
+use PrionDevelopment\Helper\Tests\Models\TestCustomMismatchModel;
+use PrionDevelopment\Helper\Tests\Models\TestCustomModel;
+use PrionDevelopment\Helper\Tests\Models\TestModel;
 use Ramsey\Uuid\Uuid;
 
 class LookupTraitByUuidTest extends HelperBaseTest
@@ -80,8 +79,6 @@ class LookupTraitByUuidTest extends HelperBaseTest
     {
         $testName = "Test Name String Not Exists";
         $testUuid1 = Uuid::uuid7();
-
-        $this->expectException(FixDefaultColumnOnModelException::class);
 
         /** @var TestCustomMismatchModel $testModel */
         $testModel = app(TestCustomMismatchModel::class);

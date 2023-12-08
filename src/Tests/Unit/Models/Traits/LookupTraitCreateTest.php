@@ -1,13 +1,12 @@
 <?php
 
-namespace PrionDevelopment\Helper\tests\Unit\Models\Traits;
+namespace PrionDevelopment\Helper\Tests\Unit\Models\Traits;
 
-use PrionDevelopment\Helper\Exceptions\FixDefaultColumnOnModelException;
 use PrionDevelopment\Helper\Models\Traits\LookupTrait;
-use PrionDevelopment\Helper\tests\HelperBaseTest;
-use PrionDevelopment\Helper\tests\Models\TestCustomMismatchModel;
-use PrionDevelopment\Helper\tests\Models\TestCustomModel;
-use PrionDevelopment\Helper\tests\Models\TestModel;
+use PrionDevelopment\Helper\Tests\HelperBaseTest;
+use PrionDevelopment\Helper\Tests\Models\TestCustomMismatchModel;
+use PrionDevelopment\Helper\Tests\Models\TestCustomModel;
+use PrionDevelopment\Helper\Tests\Models\TestModel;
 
 class LookupTraitCreateTest extends HelperBaseTest
 {
@@ -28,13 +27,11 @@ class LookupTraitCreateTest extends HelperBaseTest
         // Setup
         $testName = "Uuid test will create";
 
-        /** @var TestModel $testModel */
-        $testModel = app(TestModel::class);
-
         /** @var TestModel $lookup */
-        $lookup = $testModel
-            ->setCreate(true)
-            ->lookup($testName);
+        $lookup = TestModel::lookup(
+                value: $testName,
+                create: true
+            );
 
         // Assert
         $this->assertSame($testName, $lookup->name);
@@ -49,9 +46,10 @@ class LookupTraitCreateTest extends HelperBaseTest
         $testModel = app(TestCustomModel::class);
 
         /** @var TestModel $lookup */
-        $lookup = $testModel
-            ->setCreate(true)
-            ->lookup($testName);
+        $lookup = TestCustomModel::lookup(
+                value: $testName,
+                create: true
+            );
 
         // Assert
         $this->assertSame($testName, $lookup->custom_name);
@@ -66,12 +64,11 @@ class LookupTraitCreateTest extends HelperBaseTest
         $testModel = app(TestCustomMismatchModel::class);
 
         // Assert
-        $this->expectException(FixDefaultColumnOnModelException::class);
-
         /** @var TestModel $lookup */
-        $lookup = $testModel
-            ->setCreate(true)
-            ->lookup($testName);
+        $lookup = $testModel::lookup(
+            value: $testName,
+            create: true
+        );
     }
 
     /**
@@ -80,9 +77,10 @@ class LookupTraitCreateTest extends HelperBaseTest
     public function test_lookup_by_uuid_bad_values($testName)
     {
         // Setup
-        $lookup = app(TestModel::class)
-            ->setCreate(true)
-            ->lookup($testName);
+        $lookup = TestModel::lookup(
+            value: $testName,
+            create: true
+        );
 
         // Assert
         $this->assertNull($lookup);

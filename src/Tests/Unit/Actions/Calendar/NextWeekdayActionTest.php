@@ -5,7 +5,7 @@ namespace PrionDevelopment\Helper\Test\Unit\Actions\Calendar;
 use Carbon\Carbon;
 use PrionDevelopment\Helper\Actions\Calendar\NextWeekdayAction;
 use PrionDevelopment\Helper\Exceptions\DateIsInPastException;
-use PrionDevelopment\Helper\tests\HelperBaseTest;
+use PrionDevelopment\Helper\Tests\HelperBaseTest;
 
 class DateMathTraitTest extends HelperBaseTest
 {

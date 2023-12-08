@@ -5,9 +5,8 @@ namespace PrionDevelopment\Helper\Models\Traits;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use PrionDevelopment\Helper\Exceptions\FixDefaultColumnOnModelException;
+use Illuminate\Support\Traits\Macroable;
 use Ramsey\Uuid\Uuid;
-use function PHPUnit\Framework\isEmpty;
 
 trait LookupTrait
 {
@@ -40,10 +39,13 @@ trait LookupTrait
      *
      * @return LookupTrait|\PrionDevelopment\Helper\Tests\Unit\Models\Traits\LookupTraitTest|null
      */
-    public function lookup(
+    public static function lookup(
         string|int|null $value
         , array $data = []
-    ): ?self
+        , bool $create = false
+        , bool $cache = true
+        , mixed $options = null
+    )
     {
         // Standardize the String
         $value = standardizeString($value);
@@ -53,8 +55,14 @@ trait LookupTrait
             return null;
         }
 
+        // Setup
+        $model = new self;
+        $model->setCreate($create);
+        $model->setCache($cache);
+        $model->setOptions($options);
+
         // Integer
-        $response = $this->lookupById($value);
+        $response = $model->lookupById($value);
 
         if (null !== $response) {
             return $response;
@@ -62,7 +70,7 @@ trait LookupTrait
 
 
         // Uuid
-        $response = $this->lookupByUuid($value);
+        $response = $model->lookupByUuid($value);
 
         if (null !== $response) {
             return $response;
@@ -70,20 +78,42 @@ trait LookupTrait
 
 
         // String
-        $response = $this->lookupByString($value);
+        $response = $model->lookupByString($value);
 
         if (null !== $response) {
             return $response;
         }
 
         // Slug
-        $response = $this->lookupBySlug($value);
+        $response = $model->lookupBySlug($value);
 
         if (null !== $response) {
             return $response;
         }
 
-        return $this->lookupCreate($value, $data);
+        return $model->lookupCreate($value, $data);
+    }
+
+    /**
+     * Set additional options:
+     *  - cacheTtl
+     *  - prefix
+     *
+     * @param mixed|null $options
+     *
+     * @return mixed
+     */
+    public function setOptions(mixed $options = null): self
+    {
+        if (null === $options) {
+            return $this;
+        }
+
+        foreach ($options as $k => $v) {
+            $this->$k = $v;
+        }
+
+        return $this;
     }
 
     public function lookupCreate(
@@ -96,6 +126,7 @@ trait LookupTrait
         }
 
         // Will only create a string
+
         if (
             empty($value) ||
             is_int($value) ||
@@ -227,14 +258,7 @@ trait LookupTrait
     {
         $key = $this->columnExistsCacheKey($columnName);
         return Cache::remember($key, 30, function () use ($columnName) {
-            $hasColumn = Schema::hasColumn($this->getTable(),$columnName);
-
-            if (false === $hasColumn) {
-                $class = get_class($this);
-                throw new FixDefaultColumnOnModelException("Column '{$columnName}' does not exist on model {$class}");
-            }
-
-            return $hasColumn;
+            return Schema::hasColumn($this->getTable(),$columnName);
         });
     }
 
@@ -307,13 +331,13 @@ trait LookupTrait
         return $this->shouldCache ? $this->cacheTtl : 0;
     }
 
-    public function setCache(bool|null $shouldCache): self
+    protected function setCache(bool|null $shouldCache): self
     {
         $this->shouldCache = boolval($shouldCache);
         return $this;
     }
 
-    public function setCreate(bool|null $setCreate): self
+    protected function setCreate(bool|null $setCreate): self
     {
         $this->shouldCreate = boolval($setCreate);
         return $this;

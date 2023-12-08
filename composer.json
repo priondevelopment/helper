@@ -10,7 +10,7 @@
                 "PrionDevelopment\\Helper\\HelperServiceProvider"
             ],
             "aliases": {
-                "Geography": "PrionDevelopment\\Helper\\HelperFacade"
+                "Helper": "PrionDevelopment\\Helper\\HelperFacade"
             }
         }
     },
